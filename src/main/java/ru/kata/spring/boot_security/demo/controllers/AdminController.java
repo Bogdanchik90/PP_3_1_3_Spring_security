@@ -43,10 +43,8 @@ public class AdminController {
     }
 
     @PatchMapping("/edit/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("editUser") @Valid Person updatePerson,
-                         @RequestParam(value = "roles", required = false) Set<Integer> roleIds,
-                         BindingResult bindingResult) {
-
+    public String update(@PathVariable("id") int id, @ModelAttribute("editUser") @Valid Person updatePerson, BindingResult bindingResult,
+                         @RequestParam(value = "roles", required = false) Set<Integer> roleIds) {
 
         if (bindingResult.hasErrors())
             return "/admin/edit";
@@ -68,9 +66,8 @@ public class AdminController {
     }
 
     @PostMapping("/add")
-    public String performRegistration(@ModelAttribute("person") @Valid Person person,
-                                      @RequestParam(value = "roles", required = false) Set<Integer> roleIds,
-                                      BindingResult bindingResult) {
+    public String performRegistration(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+                                      @RequestParam(value = "roles", required = false) Set<Integer> roleIds) {
         personValidator.validate(person, bindingResult);
 
         if (bindingResult.hasErrors())
@@ -80,3 +77,4 @@ public class AdminController {
         return redirect;
     }
 }
+
